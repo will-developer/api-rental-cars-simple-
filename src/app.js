@@ -1,14 +1,18 @@
-const express = require('express');
-const cors = require('cors');
-const consign = require('consign');
-const dotenv = require('dotenv');
+const express = require('express')
+const cors = require('cors')
+const consign = require('consign')
+const dotenv = require('dotenv')
 
-dotenv.config();
+const carsRoutes = require('./routes/carsRoutes')
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+dotenv.config()
 
-consign({ cwd: 'src' }).include('routes').into(app);
+const app = express()
+app.use(cors())
+app.use(express.json())
 
-module.exports = app;
+app.use(carsRoutes)
+
+consign({ cwd: 'src' }).include('routes').into(app)
+
+module.exports = app
