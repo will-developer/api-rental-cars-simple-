@@ -6,6 +6,7 @@ module.exports = (app) => {
     const errors = [] //increment errors with push method
 
     function validatePlateFormat(plate) {
+      // https://developer.mozilla.org/en-US/docs/Glossary/ASCII
       if (plate.length !== 8) return false
 
       const letters =
@@ -23,9 +24,18 @@ module.exports = (app) => {
       const letterOrNumber =
         (plate[5] >= 'A' && plate[5] <= 'J') ||
         (plate[5] >= '0' && plate[5] <= '9')
-      const lastTwoNumbers = plate[6] >= '0' && plate[6] <= '9'
+      const secondToLastNumber = plate[6] >= '0' && plate[6] <= '9'
 
-      return letters && hyphen && firstDigit && letterOrNumber && lastTwoNumbers
+      const lastNumber = plate[7] >= '0' && plate[7] <= '9'
+
+      return (
+        letters &&
+        hyphen &&
+        firstDigit &&
+        letterOrNumber &&
+        secondToLastNumber &&
+        lastNumber
+      )
     }
 
     // Required field filled in?
