@@ -1,9 +1,14 @@
 const db = require('../config/database')
 
 const CarDatabase = {
-  async addCar(carData) {
-    const [id] = await db('cars').insert(carData)
-    return { id, ...carData }
+  addCar: async function (carData) {
+    const [id] = await db('cars').insert(carData) //destructuring
+    const newCar = await db('cars').where({ id }).first()
+    return newCar
+  },
+
+  findCarByPlate: function (plate) {
+    return db('cars').where({ plate }).first()
   }
 }
 
