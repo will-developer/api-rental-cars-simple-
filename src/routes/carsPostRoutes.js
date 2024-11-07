@@ -49,7 +49,7 @@ module.exports = (app) => {
     const currentYear = new Date().getFullYear() + 1
     const minYear = currentYear - 10
     if (year && (year < minYear || year > currentYear)) {
-      errors.push('year must be between 2015 and 2025')
+      errors.push(`year must be between ${minYear} and ${currentYear}`)
     }
 
     // plate verification
