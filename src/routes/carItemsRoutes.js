@@ -11,4 +11,6 @@ module.exports = (app) => {
     if (compareItems.size !== items.length)
       errors.push('items cannot be repeated')
   })
+
+  if (erros.length > 0) res.status(400).json({ errors })
 }
