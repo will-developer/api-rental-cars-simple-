@@ -63,6 +63,14 @@ module.exports = (app) => {
       return res.status(400).json({ errors })
     }
 
-    return res.status(200).json({ message: 'is okay with the syntax?' })
+    const updatedData = {}
+    if (brand) updatedData.brand = brand
+    if (model) updatedData.model = model
+    if (year) updatedData.year = year
+    if (plate) updatedData.plate = plate
+
+    await carDatabase.updateCarById(id, updatedData)
+
+    return res.status(204).send()
   })
 }
