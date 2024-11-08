@@ -21,6 +21,10 @@ const CarDatabase = {
     const itemsObject = items.map((item) => ({ name: item, car_id: id }))
     //console.log(itemsObject)
     return db('car_items').insert(itemsObject)
+  },
+
+  findCarItems: function (car_id) {
+    return db('car_items').where({ car_id }).select('name')
   }
 }
 
