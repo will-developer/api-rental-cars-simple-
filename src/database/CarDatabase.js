@@ -13,6 +13,14 @@ const CarDatabase = {
 
   findCarById: function (id) {
     return db('cars').where({ id }).first()
+  },
+
+  updateCarItems: async function (id, items) {
+    await db('car_items').where({ car_id: id }).del()
+
+    const itemsObject = items.map((item) => ({ name: item, car_id: id }))
+    //console.log(itemsObject)
+    return db('car_items').insert(itemsObject)
   }
 }
 

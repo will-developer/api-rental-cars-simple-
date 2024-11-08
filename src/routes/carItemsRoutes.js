@@ -8,7 +8,6 @@ module.exports = (app) => {
 
     if (items.length === 0) errors.push('Items is required')
     if (items.length > 5) errors.push('items must be a maximum of 5')
-    console.log(id)
 
     //https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Set
     const compareItems = new Set(items)
@@ -22,6 +21,7 @@ module.exports = (app) => {
       return res.status(404).json({ errors: ['car not found'] })
     }
 
-    return res.status(200).json({ message: 'items put ok' })
+    await carDatabase.updateCarItems(id, items)
+    return res.status(200).json({ message: 'New items inserted successfully' })
   })
 }
