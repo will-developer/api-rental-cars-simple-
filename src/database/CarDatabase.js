@@ -28,7 +28,7 @@ const CarDatabase = {
   },
 
   queryCars: function () {
-    return db('cars').select('*')
+    return db('cars')
   }
 }
 
