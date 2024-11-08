@@ -9,6 +9,10 @@ const CarDatabase = {
 
   findCarByPlate: function (plate) {
     return db('cars').where({ plate }).first()
+  },
+
+  findCarById: function (id) {
+    return db('cars').where({ id }).first()
   }
 }
 
