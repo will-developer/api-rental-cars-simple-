@@ -29,6 +29,10 @@ const CarDatabase = {
 
   queryCars: function () {
     return db('cars')
+  },
+
+  updateCarById: function (id, updatedData) {
+    return db('cars').where({ id }).update(updatedData)
   }
 }
 
