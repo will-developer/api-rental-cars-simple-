@@ -25,6 +25,10 @@ const CarDatabase = {
 
   findCarItems: function (car_id) {
     return db('car_items').where({ car_id }).select('name')
+  },
+
+  queryCars: function () {
+    return db('cars').select('*')
   }
 }
 
