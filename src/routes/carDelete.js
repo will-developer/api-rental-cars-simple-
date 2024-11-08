@@ -11,6 +11,8 @@ module.exports = (app) => {
       })
     }
 
-    return res.status(200).json('test ok')
+    await carDatabase.deleteCarById(id)
+
+    return res.status(204).send()
   })
 }

@@ -33,6 +33,10 @@ const CarDatabase = {
 
   updateCarById: function (id, updatedData) {
     return db('cars').where({ id }).update(updatedData)
+  },
+
+  deleteCarById: function (id) {
+    return db('cars').where({ id }).del()
   }
 }
 
