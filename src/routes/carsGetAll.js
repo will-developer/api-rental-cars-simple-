@@ -4,7 +4,6 @@ const handleError = require('../errors/errorHandler')
 module.exports = (app) => {
   app.get('/api/v1/cars/:id', async (req, res) => {
     try {
-      throw new Error('Simulated internal server error')
       const { id } = req.params
       const car = await carsServices.findCarById(id)
 
