@@ -13,6 +13,18 @@ const carService = {
   async addCar(carData) {
     const [id] = await db('cars').insert(carData)
     return db('cars').where({ id }).first()
+  },
+
+  async findCarById(id) {
+    const car = await db('cars').where({ id }).first()
+    if (!car) {
+      throw new CustomError('car not found', 404)
+    }
+    return car
+  },
+
+  async findCarItems(car_id) {
+    return db('car_items').where({ car_id }).select('name')
   }
 }
 
