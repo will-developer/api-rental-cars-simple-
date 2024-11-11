@@ -74,9 +74,7 @@ module.exports = (app) => {
       res.status(201).json(newCar)
     } catch (error) {
       // if occour error:
-      res
-        .status(500)
-        .json({ errors: ['An error occurred while adding the car'] })
+      res.status(500).json({ error: 'An internal server error occurred' })
     }
   })
 }

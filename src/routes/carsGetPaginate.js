@@ -42,7 +42,7 @@ module.exports = (app) => {
       })
     } catch (error) {
       console.error(error)
-      res.status(500).json({ error: 'An error occurred while fetching cars.' })
+      res.status(500).json({ error: 'An internal server error occurred' })
     }
   })
 }
