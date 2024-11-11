@@ -20,6 +20,10 @@ const carService = {
     return db('car_items').where({ car_id }).select('name')
   },
 
+  async updateCarById(id, updatedData) {
+    return db('cars').where({ id }).update(updatedData)
+  },
+
   async deleteCarItems(carId) {
     await db('car_items').where({ car_id: carId }).del()
   },

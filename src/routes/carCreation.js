@@ -27,6 +27,11 @@ module.exports = (app) => {
         return res.status(400).json({ errors })
       }
 
+      const existingCar = await carsServices.findCarByPlate(plate)
+      if (existingCar) {
+        return res.status(409).json({ errors: ['car already registered'] })
+      }
+
       await carsServices.findCarByPlate(plate)
 
       const newCar = await carsServices.addCar({ brand, model, year, plate })

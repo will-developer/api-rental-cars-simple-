@@ -20,8 +20,8 @@ module.exports = (app) => {
         return res.status(400).json({ errors })
       }
 
-      const result = await carItemService.updateCarItems(id, items)
-      return res.status(200).json(result)
+      await carItemService.updateCarItems(id, items)
+      return res.status(204).send()
     } catch (error) {
       handleError(res, error)
     }
