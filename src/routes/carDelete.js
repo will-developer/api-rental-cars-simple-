@@ -1,4 +1,4 @@
-const carService = require('../services/carService')
+const carsServices = require('../services/carsServices')
 const handleError = require('../errors/errorHandler')
 
 module.exports = (app) => {
@@ -6,15 +6,15 @@ module.exports = (app) => {
     try {
       const { id } = req.params
 
-      const car = await carService.findCarById(id)
+      const car = await carsServices.findCarById(id)
       if (!car) {
         return res.status(404).json({
           errors: ['car not found']
         })
       }
 
-      await carService.deleteCarItems(id)
-      await carService.deleteCarById(id)
+      await carsServices.deleteCarItems(id)
+      await carsServices.deleteCarById(id)
 
       return res.status(204).send()
     } catch (error) {

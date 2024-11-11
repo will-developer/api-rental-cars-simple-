@@ -1,6 +1,6 @@
 const carsServices = require('../services/carsServices')
 const handleError = require('../errors/errorHandler')
-const validatePlateFormat = require('../services/validation-plate')
+const { validatePlateFormat } = require('../services/validation-plate')
 
 module.exports = (app) => {
   app.post('/api/v1/cars', async (req, res) => {

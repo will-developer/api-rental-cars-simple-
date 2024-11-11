@@ -1,6 +1,6 @@
-const carService = require('../services/carService')
+const carsServices = require('../services/carsServices')
 const handleError = require('../errors/errorHandler')
-const { validatePlateFormat } = require('../services/validate-plate')
+const { validatePlateFormat } = require('../services/validation-plate')
 
 module.exports = (app) => {
   app.patch('/api/v1/cars/:id', async (req, res) => {
@@ -9,7 +9,7 @@ module.exports = (app) => {
       const { brand, model, year, plate } = req.body
       const errors = []
 
-      const car = await carService.findCarById(id)
+      const car = await carsServices.findCarById(id)
       if (!car) {
         return res.status(404).json({ errors: ['car not found'] })
       }
@@ -21,7 +21,7 @@ module.exports = (app) => {
         errors.push('plate must be in the correct format ABC-1D23')
 
       if (plate) {
-        const existingCar = await carService.findCarByPlate(plate)
+        const existingCar = await carsServices.findCarByPlate(plate)
         if (existingCar && existingCar.id !== parseInt(id)) {
           return res.status(409).json({ errors: ['car already registered'] })
         }
@@ -37,7 +37,7 @@ module.exports = (app) => {
       if (year) updatedData.year = year
       if (plate) updatedData.plate = plate
 
-      await carService.updateCarById(id, updatedData)
+      await carsServices.updateCarById(id, updatedData)
 
       return res.status(204).send()
     } catch (error) {

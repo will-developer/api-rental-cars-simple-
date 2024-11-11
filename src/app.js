@@ -9,6 +9,6 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-consign({ cwd: 'src' }).include('routes').into(app)
+consign({ cwd: 'src' }).include('routes').then('services').into(app)
 
 module.exports = app
