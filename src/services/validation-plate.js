@@ -26,4 +26,4 @@ function validatePlateFormat(plate) {
   )
 }
 
-module.exports = { validatePlateFormat }
+module.exports = validatePlateFormat

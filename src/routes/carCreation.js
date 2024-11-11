@@ -1,6 +1,6 @@
-const carService = require('../services/carService')
+const carsServices = require('../services/carsServices')
 const handleError = require('../errors/errorHandler')
-const { validatePlateFormat } = require('../services/validation')
+const validatePlateFormat = require('../services/validation-plate')
 
 module.exports = (app) => {
   app.post('/api/v1/cars', async (req, res) => {
@@ -27,9 +27,9 @@ module.exports = (app) => {
         return res.status(400).json({ errors })
       }
 
-      await carService.findCarByPlate(plate)
+      await carsServices.findCarByPlate(plate)
 
-      const newCar = await carService.addCar({ brand, model, year, plate })
+      const newCar = await carsServices.addCar({ brand, model, year, plate })
       res.status(201).json(newCar)
     } catch (error) {
       handleError(res, error)
