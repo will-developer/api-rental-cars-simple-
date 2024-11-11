@@ -1,26 +1,24 @@
-const carDatabase = require('../database/CarDatabase')
+const carService = require('../services/carService')
+const handleError = require('../errors/errorHandler')
 
 module.exports = (app) => {
   app.delete('/api/v1/cars/:id', async (req, res) => {
     try {
       const { id } = req.params
 
-      const car = await carDatabase.findCarById(id)
+      const car = await carService.findCarById(id)
       if (!car) {
         return res.status(404).json({
           errors: ['car not found']
         })
       }
 
-      await carDatabase.deleteCarItems(id)
-      await carDatabase.deleteCarById(id)
+      await carService.deleteCarItems(id)
+      await carService.deleteCarById(id)
 
       return res.status(204).send()
     } catch (error) {
-      console.error(error)
-      return res
-        .status(500)
-        .json({ error: 'An internal server error occurred' })
+      handleError(res, error)
     }
   })
 }
