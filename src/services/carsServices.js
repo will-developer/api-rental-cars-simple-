@@ -1,13 +1,8 @@
 const db = require('../config/database')
-const CustomError = require('../errors/CustomError')
 
 const carService = {
   async findCarByPlate(plate) {
-    const car = await db('cars').where({ plate }).first()
-    if (car) {
-      throw new CustomError('car already registered', 409)
-    }
-    return car
+    return db('cars').where({ plate }).first()
   },
 
   async addCar(carData) {
@@ -17,9 +12,7 @@ const carService = {
 
   async findCarById(id) {
     const car = await db('cars').where({ id }).first()
-    if (!car) {
-      throw new CustomError('car not found', 404)
-    }
+    if (!car) throw { status: 404, message: 'car not found' }
     return car
   },
 
