@@ -37,6 +37,10 @@ const CarDatabase = {
 
   deleteCarById: function (id) {
     return db('cars').where({ id }).del()
+  },
+
+  deleteCarItems: function (car_id) {
+    return db('car_items').where({ car_id }).del()
   }
 }
 

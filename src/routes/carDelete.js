@@ -11,6 +11,7 @@ module.exports = (app) => {
       })
     }
 
+    await carDatabase.deleteCarByItems(id)
     await carDatabase.deleteCarById(id)
 
     return res.status(204).send()
