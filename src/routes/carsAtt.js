@@ -1,4 +1,6 @@
-const carDatabase = require('../database/CarDatabase')
+const carService = require('../services/carService')
+const handleError = require('../errors/errorHandler')
+const { validatePlateFormat } = require('../services/validate-plate')
 
 module.exports = (app) => {
   app.patch('/api/v1/cars/:id', async (req, res) => {
@@ -7,40 +9,7 @@ module.exports = (app) => {
       const { brand, model, year, plate } = req.body
       const errors = []
 
-      function validatePlateFormat(plate) {
-        // https://developer.mozilla.org/en-US/docs/Glossary/ASCII
-        if (plate.length !== 8) return false
-
-        const letters =
-          plate[0] >= 'A' &&
-          plate[0] <= 'Z' &&
-          plate[1] >= 'A' &&
-          plate[1] <= 'Z' &&
-          plate[2] >= 'A' &&
-          plate[2] <= 'Z'
-
-        const hyphen = plate[3] === '-'
-
-        const firstDigit = plate[4] >= '0' && plate[4] <= '9'
-
-        const letterOrNumber =
-          (plate[5] >= 'A' && plate[5] <= 'J') ||
-          (plate[5] >= '0' && plate[5] <= '9')
-        const secondToLastNumber = plate[6] >= '0' && plate[6] <= '9'
-
-        const lastNumber = plate[7] >= '0' && plate[7] <= '9'
-
-        return (
-          letters &&
-          hyphen &&
-          firstDigit &&
-          letterOrNumber &&
-          secondToLastNumber &&
-          lastNumber
-        )
-      }
-
-      const car = await carDatabase.findCarById(id)
+      const car = await carService.findCarById(id)
       if (!car) {
         return res.status(404).json({ errors: ['car not found'] })
       }
@@ -52,7 +21,7 @@ module.exports = (app) => {
         errors.push('plate must be in the correct format ABC-1D23')
 
       if (plate) {
-        const existingCar = await carDatabase.findCarByPlate(plate)
+        const existingCar = await carService.findCarByPlate(plate)
         if (existingCar && existingCar.id !== parseInt(id)) {
           return res.status(409).json({ errors: ['car already registered'] })
         }
@@ -68,14 +37,11 @@ module.exports = (app) => {
       if (year) updatedData.year = year
       if (plate) updatedData.plate = plate
 
-      await carDatabase.updateCarById(id, updatedData)
+      await carService.updateCarById(id, updatedData)
 
       return res.status(204).send()
     } catch (error) {
-      console.error(error)
-      return res
-        .status(500)
-        .json({ error: 'An internal server error occurred' })
+      handleError(res, error)
     }
   })
 }
