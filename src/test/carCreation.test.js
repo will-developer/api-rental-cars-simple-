@@ -1,9 +1,14 @@
 const request = require('supertest')
-const app = require('../src/app')
-const db = require('../src/config/database')
+const app = require('../app')
+const db = require('../config/database')
 
 beforeAll(async () => {
   await db.migrate.latest()
+})
+
+beforeEach(async () => {
+  await db('car_items').del()
+  await db('cars').del()
 })
 
 afterAll(async () => {
