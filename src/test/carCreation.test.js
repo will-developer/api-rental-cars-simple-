@@ -28,3 +28,12 @@ test('should create a new car', async () => {
   expect(response.body.brand).toBe('Fiat')
   expect(response.body.model).toBe('Uno')
 })
+
+test('should return an error if required fields were not filled', async () => {
+  const response = await request(app).post('/api/v1/cars').send({
+    model: 'Uno'
+  })
+
+  expect(response.status).toBe(400)
+  expect(response.body.errors).toContain('brand is required')
+})
