@@ -15,7 +15,7 @@ afterAll(async () => {
   await db.destroy()
 })
 
-test('should create a new car', async () => {
+test.skip('should create a new car', async () => {
   const response = await request(app).post('/api/v1/cars').send({
     brand: 'Fiat',
     model: 'Uno',

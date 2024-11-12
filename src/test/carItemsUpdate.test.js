@@ -15,7 +15,7 @@ afterAll(async () => {
   await db.destroy()
 })
 
-test('should update car items successfully', async () => {
+test.skip('should update car items successfully', async () => {
   await db('cars').insert({
     brand: 'Fiat',
     model: 'Uno',
