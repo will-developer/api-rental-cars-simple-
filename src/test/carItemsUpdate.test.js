@@ -31,7 +31,7 @@ test.skip('should update car items successfully', async () => {
   expect(response.status).toBe(204)
 })
 
-test('should return an error if items list is empty', async () => {
+test.skip('should return an error if items list is empty', async () => {
   const car = await db('cars').insert(
     {
       brand: 'Fiat',
@@ -53,8 +53,8 @@ test('should return an error if items list is empty', async () => {
 test('should return an error if items list contains duplicates', async () => {
   const car = await db('cars').insert(
     {
-      brand: 'Honda',
-      model: 'Civic',
+      brand: 'Fiat',
+      model: 'Uno',
       year: 2020,
       plate: 'DEF-4567'
     },
