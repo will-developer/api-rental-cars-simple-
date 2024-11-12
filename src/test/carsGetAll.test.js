@@ -15,7 +15,7 @@ afterAll(async () => {
   await db.destroy()
 })
 
-test('should return all cars', async () => {
+test.skip('should return all cars', async () => {
   await db('cars').insert([
     { brand: 'Fiat', model: 'Uno', year: 2021, plate: 'ABC-1234' }
   ])

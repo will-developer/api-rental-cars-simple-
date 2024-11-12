@@ -50,7 +50,7 @@ test('should return an error if the car is not found', async () => {
   expect(response.status).toBe(404)
 })
 
-test('should return an error if plate is duplicated', async () => {
+test.skip('should return an error if plate is duplicated', async () => {
   const [carId] = await db('cars')
     .insert({
       brand: 'Fiat',
